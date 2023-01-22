@@ -1,0 +1,32 @@
+services:
+  flask:
+    # adding this ****ing little **** took at least 3 hours of debugging
+    command: sh -c "gunicorn -w 4 flaskr:app -b 0.0.0.0:5000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+
+
+
+  db:
+    image: postgres:bullseye
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file: .env
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    restart: always
+    healthcheck:
+      test: sh -c "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"
+      interval: 3s
+      timeout: 2s
+      retries: 30
