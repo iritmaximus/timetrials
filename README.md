@@ -47,3 +47,8 @@ TODO will be list of all courses and other relevant information
 
 ### GET [login](https://tsoha-flask.fly.dev/login)
 TODO will be used to login to the site, html template already in use, doesn't do anything meaninful yet.
+
+
+## Note
+If you get an error ´sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:postgres´,
+change your url from ´postgres://´ to ´postgresql://´.
