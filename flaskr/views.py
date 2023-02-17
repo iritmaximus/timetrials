@@ -1,11 +1,16 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for, flash
 
 from flaskr import app
 from flaskr.database import db, test_db, create_db
+from flaskr.user import check_user_exists, generate_token
 
 
 @app.route("/")
-def test_backend():
+def navigate():
+    sessionid = ""
+    if not sessionid:
+        redirect(url_for("login"))
+
     return render_template("home.html")
 
 
@@ -31,9 +36,26 @@ def get_times():
 def login():
     if request.method == "GET":
         return render_template("login.html")
+    elif request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        if check_user_exists(username, password):
+            generate_token()
+            return redirect(url_for("navigate"))
+        else:
+            flash("Incorrect login", "error")
+            print("send notification: incorrect login")
+            return redirect(url_for("login"))
     else:
-        return "Todo POST request"
+        return "Incorrect http method"
 
+
+
+        return f"Todo POST request {username} {password}"
+
+@app.route("/createuser")
+def createuser():
+    return "new user created"
 
 @app.route("/init")
 def initialize_db():

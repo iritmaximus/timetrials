@@ -2,8 +2,13 @@
 <h1>Login page</h1>
 
 <form action="/login" method="POST">
-  <input type="text" name="name">
+  <label for="username">Username:</label>
+  <input type="text" name="username">
+  <br>
+  <label for="password">Password:</label>
+  <input type="text" name="password">
+  <br>
   <input type="submit" name="login">
 </form>
 
-<p><a href="/">Return to homepage</a></p>
+<p><a href="/createuser">Create new user</a></p>
