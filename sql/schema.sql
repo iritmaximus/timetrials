@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
   id serial primary key,
-  name varchar(80) not null,
-  password varchar(80) not null
+  username varchar(80) not null,
+  password varchar(150) not null
 );
 
 CREATE TABLE IF NOT EXISTS games (

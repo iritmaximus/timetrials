@@ -1,16 +1,19 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for
 
 from flaskr import app
-from flaskr.database import db, test_db, create_db
-from flaskr.user import check_user_exists, generate_token
+from flaskr.database import test_db, create_db, reset_db
+from flaskr.user import (
+    check_user_login,
+    generate_session,
+    check_session,
+    create_new_user,
+)
 
 
 @app.route("/")
 def navigate():
-    sessionid = ""
-    if not sessionid:
-        redirect(url_for("login"))
-
+    if not check_session():
+        return redirect(url_for("login"))
     return render_template("home.html")
 
 
@@ -35,31 +38,59 @@ def get_times():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
+        if check_session():
+            # already logged in
+            return redirect(url_for("navigate"))
         return render_template("login.html")
+
     elif request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        if check_user_exists(username, password):
-            generate_token()
+
+        # TODO generate error messsage for incorrect login
+        if check_user_login(username, password):
+            generate_session(username)
             return redirect(url_for("navigate"))
+
         else:
-            flash("Incorrect login", "error")
-            print("send notification: incorrect login")
+            print("*** incorrect login ***")
             return redirect(url_for("login"))
+
     else:
         return "Incorrect http method"
 
 
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "GET":
+        return render_template("signup.html")
 
-        return f"Todo POST request {username} {password}"
+    elif request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        print("creating new user...")
+        try:
+            create_new_user(username, password)
+        except ValueError as e:
+            print("Error:", e)
+            return redirect(url_for("signup"))
 
-@app.route("/createuser")
-def createuser():
-    return "new user created"
+        return redirect(url_for("navigate"))
 
-@app.route("/init")
+    else:
+        print("incorrect method")
+        return "Error: Incorrect method"
+
+
+@app.route("/db/init")
 def initialize_db():
     return create_db()
+
+
+@app.route("/db/reset")
+def reset_database():
+    reset_db()
+    return "Initialization successful"
 
 
 @app.route("/db")
