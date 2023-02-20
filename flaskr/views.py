@@ -8,6 +8,7 @@ from flaskr.user import (
     check_session,
     create_new_user,
 )
+from flaskr.times import query_times, add_time
 
 
 @app.route("/")
@@ -20,19 +21,45 @@ def navigate():
 # TODO show 3 games with most times submitted
 @app.route("/games")
 def get_games():
-    return "List of games"
+    return render_template("games.html")
 
 
 # TODO show 3 courses with most activity
 @app.route("/courses")
 def get_courses():
-    return "List of courses"
+    return render_template("courses.html")
 
 
 # TODO show 3 newest times submitted
 @app.route("/times")
 def get_times():
-    return "List of times"
+    times = query_times()
+    print(times)
+    if times is not None:
+        return render_template("times.html", times=times, times_exist=True)
+    return render_template("times.html", times_exist=False)
+
+
+@app.route("/create/time", methods=["GET", "POST"])
+def create_time():
+    if request.method == "GET":
+        return render_template("addtime.html")
+    elif request.method == "POST":
+        if session.get("name") is None:
+            return redirect(url_for("login"))
+        game = request.form["game"]
+        course = request.form["course"]
+        time = request.form["time"]
+        user = session["name"]
+        add_time(game, course, time, user)
+        return redirect(url_for("get_times"))
+    else:
+        return "Error: Incorrect method"
+
+
+@app.route("/cups")
+def get_cups():
+    return render_template("cups.html")
 
 
 @app.route("/login", methods=["GET", "POST"])

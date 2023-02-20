@@ -35,5 +35,6 @@ CREATE TABLE IF NOT EXISTS times (
   game_id int references games(id),
   course_id int references courses(id),
   timems varchar(80),
+  user_id int references users(id),
   date date
 );
