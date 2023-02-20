@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 
 from flaskr import app
 from flaskr.database import test_db, create_db, reset_db
@@ -58,6 +58,12 @@ def login():
 
     else:
         return "Incorrect http method"
+
+
+@app.route("/logout")
+def logout():
+    session["name"] = None
+    return redirect(url_for("login"))
 
 
 @app.route("/signup", methods=["GET", "POST"])
