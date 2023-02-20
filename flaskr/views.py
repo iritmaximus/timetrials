@@ -9,6 +9,7 @@ from flaskr.user import (
     create_new_user,
 )
 from flaskr.times import query_times, add_time
+from flaskr.games import query_games
 
 
 @app.route("/")
@@ -21,7 +22,10 @@ def navigate():
 # TODO show 3 games with most times submitted
 @app.route("/games")
 def get_games():
-    return render_template("games.html")
+    games = query_games()
+    if games is None:
+        return render_template("games.html", games_exist=False)
+    return render_template("games.html", games=games, games_exist=True)
 
 
 # TODO show 3 courses with most activity
