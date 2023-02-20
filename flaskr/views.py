@@ -10,6 +10,7 @@ from flaskr.user import (
 )
 from flaskr.times import query_times, add_time
 from flaskr.games import query_games
+from flaskr.cups import query_cups
 
 
 @app.route("/")
@@ -29,7 +30,10 @@ def get_games():
 
 @app.route("/cups")
 def get_cups():
-    return render_template("cups.html")
+    cups = query_cups()
+    if cups is None:
+        return render_template("cups.html", cups_exist=False)
+    return render_template("cups.html", cups=cups, cups_exist=True)
 
 
 @app.route("/courses")
