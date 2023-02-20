@@ -19,7 +19,6 @@ def navigate():
     return render_template("home.html")
 
 
-# TODO show 3 games with most times submitted
 @app.route("/games")
 def get_games():
     games = query_games()
@@ -28,13 +27,16 @@ def get_games():
     return render_template("games.html", games=games, games_exist=True)
 
 
-# TODO show 3 courses with most activity
+@app.route("/cups")
+def get_cups():
+    return render_template("cups.html")
+
+
 @app.route("/courses")
 def get_courses():
     return render_template("courses.html")
 
 
-# TODO show 3 newest times submitted
 @app.route("/times")
 def get_times():
     times = query_times()
@@ -59,11 +61,6 @@ def create_time():
         return redirect(url_for("get_times"))
     else:
         return "Error: Incorrect method"
-
-
-@app.route("/cups")
-def get_cups():
-    return render_template("cups.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
