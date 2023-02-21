@@ -20,33 +20,44 @@ The database will be PostgreSQL-based database hosted on fly.io.
 * times
 
 ### Fancier db things
-* authenticated user can add times and edit old ones
+* authenticated user can add times and edit old ones TODO
 * other boring user/account things, can login
-* can sort times by game, track, time and other things
+* can sort times by game, track, time and other things TODO
+
+### Välipalautus 3
+Most of the fancier db things are todo. This is sort of the MVP (minimun viable product).
+
 
 ## Deployment
 
 The site is being deployed at https://tsoha-flask.fly.dev/
 
-## Routes (Mostly TODO)
+## Routes
 
 ### GET https://tsoha-flask.fly.dev/
-Just to test if the site works
+Works as the main page, can navigate to other sites.
 
 ### GET [db](https://tsoha-flask.fly.dev/db)
 Just to test if the db works (at the moment)
 
 ### GET [games](https://tsoha-flask.fly.dev/games)
-TODO will be list of all games and other relevant information
+List of games.
 
-### GET [cups](https://tsoha-flask.fly.dev/cups) (TODO, not yet a route)
-TODO will be list of all cups and other relevant information
+### GET [cups](https://tsoha-flask.fly.dev/cups)
+List of cups
 
 ### GET [courses](https://tsoha-flask.fly.dev/courses)
-TODO will be list of all courses and other relevant information
+TODO list of all courses.
 
 ### GET [login](https://tsoha-flask.fly.dev/login)
-TODO will be used to login to the site, html template already in use, doesn't do anything meaninful yet.
+Login page to the site. You will be redirected here, if you try to access other pages without a session (login in).
+
+### GET [times](https://tsoha-flask.fly.dev/times)
+List of all times submitted by the players. There is also a button to add new times.
+
+### GET [create/time](https://tsoha-flask.fly.dev/create/time)
+A page where you can submit new times, you have to be logged in for the submission to go through.
+
 
 
 ## Note
