@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for, session
 from flaskr import app
 from flaskr.database import test_db, create_db, reset_db
 from flaskr.user import (
-    check_user_login,
+    user_login,
     generate_session,
     check_session,
     create_new_user,
@@ -11,6 +11,7 @@ from flaskr.user import (
 from flaskr.times import query_times, add_time
 from flaskr.games import query_games
 from flaskr.cups import query_cups
+from flaskr.courses import query_courses
 
 
 @app.route("/")
@@ -38,7 +39,10 @@ def get_cups():
 
 @app.route("/courses")
 def get_courses():
-    return render_template("courses.html")
+    courses = query_courses()
+    if courses:
+        return render_template("courses.html", courses=courses, courses_exist=True)
+    return render_template("courses.html", courses_exist=False)
 
 
 @app.route("/times")
@@ -80,7 +84,7 @@ def login():
         password = request.form["password"]
 
         # TODO generate error messsage for incorrect login
-        if check_user_login(username, password):
+        if user_login(username, password):
             generate_session(username)
             return redirect(url_for("navigate"))
 
@@ -120,6 +124,7 @@ def signup():
         return "Error: Incorrect method"
 
 
+# TODO remove these when ready
 @app.route("/db/init")
 def initialize_db():
     return create_db()

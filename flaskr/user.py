@@ -17,7 +17,7 @@ def check_session() -> bool:
         return False
 
 
-def check_user_login(name: str, password: str) -> bool:
+def user_login(name: str, password: str) -> bool:
     # query sql
     # 1. check if username exists
     # 2. check if passwords match

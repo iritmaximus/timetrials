@@ -1,1 +1,28 @@
 <h1>Courses</h1>
+
+<style>
+table, tr, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+</style>
+
+<table>
+    {% if courses_exist %}
+    <tr>
+        <td>Name</td>
+        <td>Game</td>
+        <td>Cups</td>
+    </tr>
+    {% for item in courses %}
+    <tr>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+</table>
+
+<a href="/">Go back</a>
