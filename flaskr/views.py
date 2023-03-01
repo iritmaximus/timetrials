@@ -9,7 +9,7 @@ from flaskr.user import (
     create_new_user,
 )
 from flaskr.times import query_times, add_time
-from flaskr.games import query_games
+from flaskr.games import query_games, get_game_name, get_all_times_in_game
 from flaskr.cups import query_cups
 from flaskr.courses import query_courses
 
@@ -28,6 +28,16 @@ def get_games():
         return render_template("games.html", games_exist=False)
     return render_template("games.html", games=games, games_exist=True)
 
+@app.route("/games/<int:game_id>")
+def get_game_by_id(game_id):
+    try:
+        game_id = int(game_id)
+        game_name = get_game_name(game_id)
+    except ValueError:
+        return render_template("error.html", message="Incorrect id, id not found or incorrect value")
+    times = get_all_times_in_game(game_id)
+    return render_template("game_id.html",  game_name=game_name, times=times)
+
 
 @app.route("/cups")
 def get_cups():
@@ -40,9 +50,9 @@ def get_cups():
 @app.route("/courses")
 def get_courses():
     courses = query_courses()
-    if courses:
-        return render_template("courses.html", courses=courses, courses_exist=True)
-    return render_template("courses.html", courses_exist=False)
+    if courses is None:
+        return render_template("courses.html", courses_exist=False)
+    return render_template("courses.html", courses=courses, courses_exist=True)
 
 
 @app.route("/times")

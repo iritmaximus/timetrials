@@ -1,0 +1,23 @@
+<h1>{{game_name}}</h1>
+
+<h2>Times</h2>
+<table>
+    <tr>
+        <td>Time</td>
+        <td>Course</td>
+        <td>Cup</td>
+        <td>User</td>
+    </tr>
+    {% if times_exist %}
+    {% for time in times %}
+    <tr>
+        <td>time[0]</td>
+        <td>time[1]</td>
+        <td>time[2]</td>
+        <td>time[3]</td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+</table>
+
+<a href="/">Go back</a>
