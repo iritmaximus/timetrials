@@ -2,7 +2,7 @@ from flaskr.database import db
 
 
 def query_games():
-    sql = "SELECT name FROM games"
+    sql = "SELECT name, id FROM games"
     result = db.session.execute(sql).fetchall()
     return result
 
