@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS standards (
 CREATE TABLE IF NOT EXISTS times (
   id serial primary key,
   game_id int references games(id),
+  cup_id int references cups(id),
   course_id int references courses(id),
   timems varchar(80),
   user_id int references users(id),

@@ -10,7 +10,7 @@ from flaskr.user import (
 )
 from flaskr.times import query_times, add_time
 from flaskr.games import query_games, get_game_name, get_all_times_in_game
-from flaskr.cups import query_cups
+from flaskr.cups import query_cups, get_cup_name, get_all_times_in_cup
 from flaskr.courses import query_courses
 
 
@@ -50,6 +50,26 @@ def get_cups():
     return render_template("cups.html", cups=cups, cups_exist=True)
 
 
+@app.route("/cups/<int:cup_id>")
+def get_cup_by_id(cup_id):
+    try:
+        cup_id = int(cup_id)
+        # TODO unnecessary sql query, name could be passed from the <a>
+        cup_name = get_cup_name(cup_id)
+    except ValueError:
+        return render_template(
+            "error.html", message="Incorrect id, id not found or incorrect value"
+        )
+    times = get_all_times_in_cup(cup_id)
+    print(times)
+    if times:
+        return render_template(
+            "cup_id.html", cup_name=cup_name, times=times, times_exist=True
+        )
+    else:
+        return render_template("cup_id.html", times_exist=False)
+
+
 @app.route("/courses")
 def get_courses():
     courses = query_courses()
@@ -71,15 +91,22 @@ def get_times():
 def create_time():
     if request.method == "GET":
         return render_template("addtime.html")
+
     elif request.method == "POST":
         if session.get("name") is None:
             return redirect(url_for("login"))
+
         game = request.form["game"]
         course = request.form["course"]
         time = request.form["time"]
         user = session["name"]
-        add_time(game, course, time, user)
+        try:
+            add_time(game, course, time, user)
+        except ValueError as e:
+            print("Error adding the time", e)
+            return redirect(url_for("create_time"))
         return redirect(url_for("get_times"))
+
     else:
         return "Error: Incorrect method"
 
