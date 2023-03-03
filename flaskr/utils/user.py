@@ -1,8 +1,8 @@
 # import bcrypt
 from flask import session
-from flaskr.database import db
-
 from werkzeug.security import check_password_hash, generate_password_hash
+
+from flaskr.database import db
 
 
 def generate_session(name: str):
