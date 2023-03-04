@@ -7,6 +7,17 @@ def query_cups():
     return result
 
 
+def query_cup_by_name(cup_name: str):
+    sql = """
+    SELECT cups.id FROM cups WHERE cups.name=:cup_name
+    """
+    result = db.session.execute(sql, {"cup_name": cup_name}).fetchone()
+    if result:
+        return result[0]
+    else:
+        raise ValueError(f"No cup with name {cup_name} found")
+
+
 def get_cup_name(id: int):
     sql = "SELECT name FROM cups WHERE id=:id"
     result = db.session.execute(sql, {"id": id}).fetchone()
