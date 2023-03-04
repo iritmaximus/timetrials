@@ -1,0 +1,29 @@
+<h1>{{course_name}}</h1>
+
+<style>
+table, tr, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+</style>
+
+<h2>Times</h2>
+<table>
+    <tr>
+        <td>Game</td>
+        <td>Cup</td>
+        <td>Time</td>
+        <td>User</td>
+    </tr>
+    {% for time in times %}
+    <tr>
+        <td>{{time[0]}}</td>
+        <td>{{time[1]}}</td>
+        <td>{{time[2]}}</td>
+        <td>{{time[3]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/games">Go back</a>
