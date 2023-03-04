@@ -17,9 +17,9 @@ table, tr, td {
     </tr>
     {% for item in courses %}
     <tr>
-        <td><a href="/courses/{{item[0]}}">{{item[0]}}</a></td>
-        <td><a href="/games/{{item[1]}}">{{item[1]}}</a></td>
-        <td><a href="/cups/{{item[2]}}">{{item[2]}}</a></td>
+        <td><a href="/courses/{{item[0].replace(' ', '%20')}}">{{item[0]}}</a></td>
+        <td><a href="/api/game/{{item[1].replace(' ', '%20')}}">{{item[1]}}</a></td>
+        <td><a href="/cups/{{item[2].replace(' ', '%20')}}">{{item[2]}}</a></td>
     </tr>
     {% endfor %}
     {% endif %}
