@@ -26,7 +26,9 @@ def get_game_by_id(game_id):
             "error.html", message="Incorrect id, id not found or incorrect value"
         )
     times = get_all_times_in_game(game_id)
-    return render_template("game_id.html", game_name=game_name, times=times)
+    return render_template(
+        "game_id.html", times_exist=True, game_name=game_name, times=times
+    )
 
 
 @app.route("/api/game/<string:game_name>")
