@@ -37,9 +37,6 @@ The site is being deployed at https://tsoha-flask.fly.dev/
 ### GET https://tsoha-flask.fly.dev/
 Works as the main page, can navigate to other sites.
 
-### GET [db](https://tsoha-flask.fly.dev/db)
-Just to test if the db works (at the moment)
-
 ### GET [games](https://tsoha-flask.fly.dev/games)
 List of games.
 
@@ -47,7 +44,7 @@ List of games.
 List of cups
 
 ### GET [courses](https://tsoha-flask.fly.dev/courses)
-TODO list of all courses.
+List of all courses.
 
 ### GET [login](https://tsoha-flask.fly.dev/login)
 Login page to the site. You will be redirected here, if you try to access other pages without a session (login in).
@@ -58,8 +55,51 @@ List of all times submitted by the players. There is also a button to add new ti
 ### GET [create/time](https://tsoha-flask.fly.dev/create/time)
 A page where you can submit new times, you have to be logged in for the submission to go through.
 
-
+### GET [api/(game/cup/course)/id](https://tsoha-flask.fly.dev/api/)
+You will be redirected to some of these from clicking any of the corresponding fields in the times.
 
 ## Note
 If you get an error ´sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:postgres´,
 change your url from ´postgres://´ to ´postgresql://´.
+
+## Local dev
+### Requirements
+If you want to run this locally, you need
+* Virtual environment
+* Proper .env file
+* Docker and docker-compose installed (optional)
+
+### Setting up
+* Venv (virtual environment) can be achieved through running `python -m venv .venv` in the `timetrials` directory.
+This will create the venv file to `timetrials/.venv` (a hidden file).
+* `.env` needs to contain `POSTGRES_URL` and `SECRET_KEY`
+- The `POSTGRES_URL` needs to be the full url to your postgres database, containing user, password and database
+- `SECRET_KEY` is some random string that you need to create. One simple way is to launch the python interactive prompt with 
+```bash
+python
+```
+and then run the commands
+```python
+>>> import secrets
+>>> secrets.token_hex(16)
+```
+and copy the result to the `SECRET_KEY` variable.
+
+After that you can either build the app by running
+```bash
+docker-compose up -d
+```
+
+If you don't have or don't want to use docker, you can activate the venv by calling
+```bash
+source .venv/bin/activate
+```
+(google the proper way to do it if you are on Windows).
+Then install the requirements with pip
+```bash
+pip install -r requirements.txt
+```
+and then you can just run the command
+```bash
+python run.py
+```
