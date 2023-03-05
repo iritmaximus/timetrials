@@ -21,9 +21,9 @@ table, tr, td {
     {% for time in times %}
     <tr>
         <td>{{time[0]}}</td>
-        <td>{{time[1]}}</td>
-        <td>{{time[2]}}</td>
-        <td>{{time[3]}}</td>
+        <td><a href="/api/course/{{item[1].replace(' ', '%20')}}">{{time[1]}}</a></td>
+        <td><a href="/api/cup/{{item[2].replace(' ', '%20')}}">{{time[2]}}</a></td>
+        <td><a href="/api/game/{{item[3].replace(' ', '%20')}}">{{time[3]}}</a></td>
     </tr>
     {% endfor %}
     {% endif %}
