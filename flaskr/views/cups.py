@@ -10,10 +10,10 @@ from flaskr.utils.cups import (
 
 @app.route("/cups")
 def get_cups():
-    cups = query_cups()
+    cups, count = query_cups()
     if cups is None:
-        return render_template("cups.html", cups_exist=False)
-    return render_template("cups.html", cups=cups, cups_exist=True)
+        return render_template("cups.html", cups_exist=False, count=count)
+    return render_template("cups.html", cups=cups, cups_exist=True, count=count)
 
 
 @app.route("/cups/<int:cup_id>")

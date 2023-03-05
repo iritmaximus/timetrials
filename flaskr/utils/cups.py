@@ -4,7 +4,9 @@ from flaskr.database import db
 def query_cups():
     sql = "SELECT name, id FROM cups"
     result = db.session.execute(sql).fetchall()
-    return result
+    sql = "SELECT count(cups.id) FROM cups"
+    count = db.session.execute(sql).fetchone()
+    return result, count[0]
 
 
 def query_cup_by_name(cup_name: str):
