@@ -18,8 +18,8 @@ table, tr, td {
     </tr>
     {% for time in times %}
     <tr>
-        <td>{{time[0]}}</td>
-        <td>{{time[1]}}</td>
+        <td><a href="/api/game/{{time[0].replace(' ', '%20')}}">{{time[0]}}</a></td>
+        <td><a href="/api/cup/{{time[1].replace(' ', '%20')}}">{{time[1]}}</a></td>
         <td>{{time[2]}}</td>
         <td>{{time[3]}}</td>
     </tr>
