@@ -1,11 +1,11 @@
 <h1>Add time</h1>
 
-<form action="/create/time" method="POST">
+<form name="addNewTime" action="/create/time" method="POST">
   <label for="game">Game:</label>
   <input type="text" name="game" required>
   <label for="course">Course:</label>
   <input type="text" name="course" required>
   <label for="time">Time (mm:ss:mss):</label>
-  <input type="text" name="time" required>
+  <input type="text" name="time" required pattern="/\d{0,2}:[0-5]\d:\d\d\/">
   <input type="submit" name="time">
 </form>
