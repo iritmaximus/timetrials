@@ -6,10 +6,12 @@ from flaskr.utils.courses import query_courses, query_course_by_name
 
 @app.route("/courses")
 def get_courses():
-    courses = query_courses()
+    courses, count = query_courses()
     if courses is None:
-        return render_template("courses.html", courses_exist=False)
-    return render_template("courses.html", courses=courses, courses_exist=True)
+        return render_template("courses.html", courses_exist=False, count=count)
+    return render_template(
+        "courses.html", courses=courses, courses_exist=True, count=count
+    )
 
 
 @app.route("/courses/<int:course_id>")

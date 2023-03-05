@@ -2,9 +2,15 @@ from flaskr.database import db
 
 
 def query_courses():
-    sql = "SELECT courses.name, games.name, cups.name FROM courses JOIN games ON games.id=courses.game_id JOIN cups ON cups.id=courses.cup_id"
+    sql = """
+    SELECT courses.name, games.name, cups.name
+    FROM courses
+        JOIN games ON games.id=courses.game_id
+        JOIN cups ON cups.id=courses.cup_id"""
     result = db.session.execute(sql).fetchall()
-    return result
+    sql = "SELECT count(courses.id) FROM courses"
+    count = db.session.execute(sql).fetchone()
+    return result, count[0]
 
 
 def query_course_by_name(course_name: str):
