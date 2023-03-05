@@ -4,7 +4,9 @@ from flaskr.database import db
 def query_games():
     sql = "SELECT name, id FROM games"
     result = db.session.execute(sql).fetchall()
-    return result
+    sql = "SELECT count(games.id) FROM games"
+    count = db.session.execute(sql).fetchone()
+    return result, count[0]
 
 
 def query_game_by_name(game_name: str):

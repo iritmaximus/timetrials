@@ -10,10 +10,10 @@ from flaskr.utils.games import (
 
 @app.route("/games")
 def get_games():
-    games = query_games()
+    games, count = query_games()
     if games is None:
-        return render_template("games.html", games_exist=False)
-    return render_template("games.html", games=games, games_exist=True)
+        return render_template("games.html", games_exist=False, count=count)
+    return render_template("games.html", games=games, games_exist=True, count=count)
 
 
 @app.route("/games/<int:game_id>")
