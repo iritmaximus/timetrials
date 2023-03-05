@@ -10,6 +10,7 @@ def query_courses():
     result = db.session.execute(sql).fetchall()
     sql = "SELECT count(courses.id) FROM courses"
     count = db.session.execute(sql).fetchone()
+    db.session.close()
     return result, count[0]
 
 
@@ -23,4 +24,5 @@ def query_course_by_name(course_name: str):
     WHERE times.course_id in (SELECT id FROM courses WHERE name=:course_name)
     """
     result = db.session.execute(sql, {"course_name": course_name}).fetchall()
+    db.session.close()
     return result

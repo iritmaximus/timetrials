@@ -4,6 +4,7 @@ from flaskr.database import db
 def query_times():
     sql = "SELECT games.name, courses.name, times.timems, users.username FROM times JOIN games ON games.id=times.game_id JOIN courses ON courses.id=times.course_id JOIN users ON users.id=times.user_id"
     result = db.session.execute(sql).fetchall()
+    db.session.close()
     print(result)
     return result
 
@@ -49,3 +50,4 @@ def add_time(game, course, time, user):
         },
     )
     db.session.commit()
+    db.session.close()

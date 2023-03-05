@@ -6,6 +6,7 @@ def query_cups():
     result = db.session.execute(sql).fetchall()
     sql = "SELECT count(cups.id) FROM cups"
     count = db.session.execute(sql).fetchone()
+    db.session.close()
     return result, count[0]
 
 
@@ -14,6 +15,7 @@ def query_cup_by_name(cup_name: str):
     SELECT cups.id FROM cups WHERE cups.name=:cup_name
     """
     result = db.session.execute(sql, {"cup_name": cup_name}).fetchone()
+    db.session.close()
     if result:
         return result[0]
     else:
@@ -32,6 +34,7 @@ def get_cup_name(id: int):
 def get_cup_id(course_id: int):
     sql = "SELECT cups_id FROM courses WHERE id=:course_id"
     result = db.session.execute(sql, {"course_id": course_id}).fetchall()
+    db.session.close()
     if result:
         return result[0]
     else:
@@ -52,4 +55,5 @@ def get_all_times_in_cup(id: int):
     result = db.session.execute(sql, {"id": id}).fetchall()
     sql = "SELECT count(times.id) FROM times WHERE times.cup_id=:id"
     count = db.session.execute(sql, {"id": id}).fetchone()
+    db.session.close()
     return result, count[0]

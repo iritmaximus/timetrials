@@ -25,6 +25,7 @@ def user_login(name: str, password: str) -> bool:
     print("checking if username exists")
     sql = "SELECT password FROM users as u where u.username=:username"
     result = db.session.execute(sql, {"username": name}).fetchone()
+    db.session.close()
     print("password:", result)
     if result is None:
         return False
@@ -40,6 +41,7 @@ def user_login(name: str, password: str) -> bool:
 def check_username_exists(username: str) -> bool:
     sql = "SELECT COUNT(*) FROM users as u WHERE u.username=:username"
     result = db.session.execute(sql, {"username": username}).fetchone()
+    db.session.close()
     print("result:", result)
     if result is not None:
         if result[0] == 0:
@@ -61,6 +63,7 @@ def create_new_user(name: str, text_password: str):
     sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
     db.session.execute(sql, {"username": username, "password": password})
     db.session.commit()
+    db.session.close()
     print("success")
 
 

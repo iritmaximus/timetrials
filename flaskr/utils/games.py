@@ -6,12 +6,14 @@ def query_games():
     result = db.session.execute(sql).fetchall()
     sql = "SELECT count(games.id) FROM games"
     count = db.session.execute(sql).fetchone()
+    db.session.close()
     return result, count[0]
 
 
 def query_game_by_name(game_name: str):
     sql = "SELECT id FROM games WHERE games.name=:game_name"
     result = db.session.execute(sql, {"game_name": game_name}).fetchone()
+    db.session.close()
     if result:
         return result[0]
     else:
@@ -21,6 +23,7 @@ def query_game_by_name(game_name: str):
 def get_game_name(id: int):
     sql = f"SELECT name FROM games WHERE id=:id"
     result = db.session.execute(sql, {"id": id}).fetchone()
+    db.session.close()
     if result:
         return result[0]
     else:
@@ -39,4 +42,5 @@ def get_all_times_in_game(id: int):
     results = db.session.execute(sql, {"id": id}).fetchall()
     sql = "SELECT count(times.id) FROM times WHERE times.game_id=:id"
     count = db.session.execute(sql, {"id": id}).fetchone()
+    db.session.close()
     return results, count[0]

@@ -15,6 +15,7 @@ def create_db():
     db.session.execute(open("sql/cups.sql", "r").read())
     db.session.execute(open("sql/courses.sql", "r").read())
     db.session.commit()
+    db.session.close()
     print("Db initialization completed.")
 
     return "Success"
@@ -29,6 +30,7 @@ def reset_db():
     db.session.execute(open("sql/cups.sql", "r").read())
     db.session.execute(open("sql/courses.sql", "r").read())
     db.session.commit()
+    db.session.close()
 
 
 def test_db():
@@ -49,6 +51,7 @@ def test_db():
     db.session.commit()
 
     result = db.session.execute("SELECT * FROM test;").fetchall()
+    db.session.close()
     print(result)
 
     return "Working lol"
