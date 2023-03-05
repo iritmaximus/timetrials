@@ -24,14 +24,15 @@ def get_cup_by_id(cup_id):
         cup_name = get_cup_name(cup_id)
     except ValueError as e:
         return render_template("error.html", message=f"Incorrect id, {e}")
-    times = get_all_times_in_cup(cup_id)
-    print(times)
+    times, count = get_all_times_in_cup(cup_id)
     if times:
         return render_template(
-            "cup_id.html", cup_name=cup_name, times=times, times_exist=True
+            "cup_id.html", cup_name=cup_name, times=times, times_exist=True, count=count
         )
     else:
-        return render_template("cup_id.html", times_exist=False)
+        return render_template(
+            "cup_id.html", times_exist=False, count=count, cup_name=cup_name
+        )
 
 
 @app.route("/api/cup/<string:cup_name>")

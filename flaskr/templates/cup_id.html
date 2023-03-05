@@ -8,22 +8,23 @@ table, tr, td {
 }
 </style>
 
+<p>There is {{count}} times in {{cup_name}}</p>
 
 <h2>Times</h2>
 <table>
     <tr>
-        <td>Time</td>
         <td>Course</td>
-        <td>Cup</td>
+        <td>Game</td>
+        <td>Time</td>
         <td>User</td>
     </tr>
     {% if times_exist %}
     {% for time in times %}
     <tr>
-        <td>{{time[0]}}</td>
-        <td><a href="/api/course/{{item[1].replace(' ', '%20')}}">{{time[1]}}</a></td>
-        <td><a href="/api/cup/{{item[2].replace(' ', '%20')}}">{{time[2]}}</a></td>
-        <td><a href="/api/game/{{item[3].replace(' ', '%20')}}">{{time[3]}}</a></td>
+        <td><a href="/api/course/{{time[0].replace(' ', '%20')}}">{{time[0]}}</a></td>
+        <td><a href="/api/game/{{time[1].replace(' ', '%20')}}">{{time[1]}}</a></td>
+        <td>{{time[2]}}</td>
+        <td>{{time[3]}}</td>
     </tr>
     {% endfor %}
     {% endif %}

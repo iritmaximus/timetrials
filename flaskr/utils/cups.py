@@ -38,7 +38,7 @@ def get_cup_id(course_id: int):
         raise ValueError("No cup found for current course")
 
 
-def get_all_times_in_cup(id: int) -> list[str]:
+def get_all_times_in_cup(id: int):
     """Queries the database for all times made in the wanted cup"""
 
     sql = """
@@ -49,6 +49,7 @@ def get_all_times_in_cup(id: int) -> list[str]:
         JOIN users ON times.user_id=users.id
     WHERE times.cup_id=:id
     """
-
     result = db.session.execute(sql, {"id": id}).fetchall()
-    return result
+    sql = "SELECT count(times.id) FROM times WHERE times.cup_id=:id"
+    count = db.session.execute(sql, {"id": id}).fetchone()
+    return result, count[0]
