@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, redirect, url_for
 
 from flaskr import app
 from flaskr.database import test_db, create_db, reset_db
