@@ -25,9 +25,9 @@ def get_game_by_id(game_id):
         return render_template(
             "error.html", message="Incorrect id, id not found or incorrect value"
         )
-    times = get_all_times_in_game(game_id)
+    times, count = get_all_times_in_game(game_id)
     return render_template(
-        "game_id.html", times_exist=True, game_name=game_name, times=times
+        "game_id.html", times_exist=True, game_name=game_name, times=times, count=count
     )
 
 

@@ -37,4 +37,6 @@ def get_all_times_in_game(id: int):
     WHERE times.game_id=:id
     """
     results = db.session.execute(sql, {"id": id}).fetchall()
-    return results
+    sql = "SELECT count(times.id) FROM times WHERE times.game_id=:id"
+    count = db.session.execute(sql, {"id": id}).fetchone()
+    return results, count[0]
