@@ -16,13 +16,14 @@ The database will be PostgreSQL-based database hosted on fly.io.
 * games
 * cups
 * courses
-* standards
 * times
 
 ### Fancier db things
-* authenticated user can add times and edit old ones TODO
-* other boring user/account things, can login
-* can sort times by game, track, time and other things TODO
+* user can log in and create new times.
+* can see times by game, cup and course.
+* the site tells how many times there are for each category.
+* can click on individual courses, cups or games to see all the times in the selected category
+
 
 ### Välipalautus 3
 Most of the fancier db things are todo. This is sort of the MVP (minimun viable product).
@@ -59,8 +60,8 @@ A page where you can submit new times, you have to be logged in for the submissi
 You will be redirected to some of these from clicking any of the corresponding fields in the times.
 
 ## Note
-If you get an error ´sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:postgres´,
-change your url from ´postgres://´ to ´postgresql://´.
+If you get an error `sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:postgres`,
+change your url from `postgres://` to `postgresql://`.
 
 ## Local dev
 ### Requirements
@@ -74,7 +75,7 @@ If you want to run this locally, you need
 This will create the venv file to `timetrials/.venv` (a hidden file).
 * `.env` needs to contain `POSTGRES_URL` and `SECRET_KEY`
 - The `POSTGRES_URL` needs to be the full url to your postgres database, containing user, password and database
-- `SECRET_KEY` is some random string that you need to create. One simple way is to launch the python interactive prompt with 
+- `SECRET_KEY` is some random string that you need to create. One simple way is to launch the python interactive prompt with
 ```bash
 python
 ```
