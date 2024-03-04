@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:alpine
+FROM python:3.10-alpine
 RUN pip install --upgrade pip
 
 RUN adduser -D nonroot
