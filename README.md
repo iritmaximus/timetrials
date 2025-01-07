@@ -31,7 +31,7 @@ Most of the fancier db things are todo. This is sort of the MVP (minimun viable 
 
 ## Deployment
 
-The site is being deployed at https://tsoha-flask.fly.dev/
+~~The site is being deployed at https://tsoha-flask.fly.dev/~~
 
 ## Routes
 
