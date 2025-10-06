@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: ${{ github.event_name == 'release' && 'timetrials' || 'timetrials-staging' }}
 
 jobs:
-  build_todo_frontend:
+  build_timetrials:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
