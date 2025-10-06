@@ -20,7 +20,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: "${{ vars.DOCKER_USERNAME }}/{{ env.IMAGE_NAME }}"
+          images: "${{ vars.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}"
           # images: "${{ vars.DOCKER_USERNAME }}/${IMAGE_NAME}"
 
       - name: Log in to Docker Hub
