@@ -10,6 +10,7 @@ on:
 env:
   IMAGE_NAME: ${{ github.event_name == 'release' && 'timetrials' || 'timetrials-staging' }}
 
+jobs:
   build_todo_frontend:
     runs-on: ubuntu-latest
     steps:
