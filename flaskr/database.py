@@ -3,25 +3,8 @@ from flaskr import app
 from flask_sqlalchemy import SQLAlchemy
 from random import randint
 
-if not getenv("POSTGRES_URL") or (getenv("POSTGRES_URL") and not getenv("POSTGRES_URL").startswith("postgresql://")):
-    postgres_host = getenv("POSTGRES_HOST")
-    postgres_db = getenv("POSTGRES_DB")
-    postgres_port = getenv("POSTGRES_PORT")
-    postgres_user = getenv("POSTGRES_USER")
-    postgres_password = getenv("POSTGRES_PASSWORD")
-    postgres_variables = [postgres_host, postgres_db, postgres_port, postgres_user, postgres_password]
-
-    for var in postgres_variables:
-        if not var:
-            raise ValueError("All environment variables not set")
-
-    database_url = f"postgresql://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
-else:
-    app.config["SQLALCHEMY_DATABASE_URI"] = getenv("POSTGRES_URL")
 
 db = SQLAlchemy(app)
-
 
 def create_db():
     print("Initializing the db...")
