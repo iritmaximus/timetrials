@@ -15,7 +15,8 @@ if not getenv("POSTGRES_URL") or (getenv("POSTGRES_URL") and not getenv("POSTGRE
         if not var:
             raise ValueError("All environment variables not set")
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
+    database_url = f"postgresql://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = getenv("POSTGRES_URL")
 
